@@ -1,0 +1,49 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.app .addForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+    max-width: 250px;
+}
+
+.addFood .form-input {
+    width: 100%;
+    margin: 10px 0px;
+    font-family: arial;
+}
+
+table {
+    font-family: arial;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.totalTable {
+    position: relative;
+    margin-top: 10px; 
+    font-family: arial;
+}
+.addNewFood {
+    position: relative;
+    font-family: arial;
+    display: none;
+}
