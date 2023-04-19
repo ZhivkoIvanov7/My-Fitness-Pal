@@ -1,27 +1,27 @@
 [
     {
         "name": "Egg",
-        "servingSize": "60",
-        "protein": "6.3",
-        "carbohydrates": "0.4",
-        "fat": "4.8",
-        "calories": "72"
+        "servingSize": 60,
+        "protein": 6.3,
+        "carbohydrates": 0.4,
+        "fat": 4.8,
+        "calories": 72
     },
     {
         "name": "Chicken fillet",
-        "servingSize": "100",
-        "protein": "21.7",
-        "carbohydrates": "0.4",
-        "fat": "2.6",
-        "calories": "112"
+        "servingSize": 100,
+        "protein": 21.7,
+        "carbohydrates": 0.4,
+        "fat": 2.6,
+        "calories": 112
     },
     {
         "name": "Rice",
-        "servingSize": "100",
-        "protein": "7",
-        "carbohydrates": "75",
-        "fat": "0.6",
-        "calories": "330"  
+        "servingSize": 100,
+        "protein": 7,
+        "carbohydrates": 75,
+        "fat": 0.6,
+        "calories": 330  
     }
     
 ]
