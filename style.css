@@ -11,9 +11,6 @@ body {
 }   
 
 #addFood {
-    position: absolute;
-    right: 790px;
-    top: 36.5px;
     text-align: center;
     width: 26px;
     height: 26px;
@@ -24,16 +21,7 @@ body {
     border-color: black;
 }
 
-.app .addForm {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 80%;
-    transform: translate(-50%, -50%);
-    max-width: 250px;
-}
-
-.addFood #form-input {
+#form-input {
     width: 100%;
     margin: 10px 0px;
     font-family: arial;

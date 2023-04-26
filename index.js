@@ -1,9 +1,9 @@
-import { setupInitialDisplay } from "./displaySetup/setupInitialDisplay.js";
-import { setupAddNewFoodDisplay } from "./displaySetup/setupAddNewFoodDisplay.js";
+import { setActivePage } from "./displaySetup/setupDisplay.js";
 import { confirmDialogBox } from "./confirmDialogBox.js";
 import { clearInput } from "./clearInputs/clearInput.js";
 import { clearTotal } from "./clearInputs/clearTotal.js";
 import { clearAddNewFoodInputs } from "./clearInputs/clearAddNewFoodInputs.js";
+import foodsDb from './db.json' assert { type: 'json' }
 
 let totalServingSize = 0;
 let totalProteins = 0;
@@ -18,6 +18,10 @@ const foodNameElementId = 'foodName';
 function solve() {
     document.getElementById('addFood').addEventListener('click', addFood);
     document.getElementById('addNewFoodBtn').addEventListener('click', addNewFood);
+
+    if (!localStorage.getItem('foods')) {
+        localStorage.setItem('foods', JSON.stringify(foodsDb))
+    }
 
     const foods = JSON.parse(localStorage.getItem('foods')) || [];
 
@@ -75,7 +79,7 @@ function solve() {
             updateTotalTable(food.servingSize, food.protein, food.carbohydrates, food.fat, food.calories);
         } else {
             addNewFood();
-            setupAddNewFoodDisplay();
+            setActivePage('add-new-food');
             confirmDialogBox();
         }
     }
@@ -131,15 +135,16 @@ function solve() {
             "calories": calories
         }
         
-        if(!foodName || !servingSize || !protein || !carbs || !fat || !calories ){
+        if (!foodName || !servingSize || !protein || !carbs || !fat || !calories ) {
             return;
-        }else {
+        } else {
             foods.push(newFood);
             
             localStorage.setItem('foods', JSON.stringify(foods));
 
             clearAddNewFoodInputs();
         }
-        setupInitialDisplay();
+
+        setActivePage('start-page');
     }
 }
