@@ -8,6 +8,20 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
+}   
+
+#addFood {
+    position: absolute;
+    right: 790px;
+    top: 36.5px;
+    text-align: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: larger;
+    color: blue;
+    background-color:rgb(206, 206, 206);
+    border-color: black;
 }
 
 .app .addForm {
@@ -19,31 +33,54 @@ body {
     max-width: 250px;
 }
 
-.addFood .form-input {
+.addFood #form-input {
     width: 100%;
     margin: 10px 0px;
     font-family: arial;
 }
 
-table {
+#fitness-table {
     font-family: arial;
     border-collapse: collapse;
     width: 100%;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
 
-.totalTable {
-    position: relative;
-    margin-top: 10px; 
+#total {
+    border-collapse: collapse;
+    margin-top: 10px;
     font-family: arial;
 }
-.addNewFood {
-    position: relative;
-    font-family: arial;
+
+#addNewFood-form {
+    flex-direction: column;
     display: none;
+    justify-content: center;
+    font-size: 28px;
+    font-family: arial;
+    width: 100%;
+}
+
+input[type="text"] {
+    height: 25px;
+    width: 200px;
+}
+
+h3 {
+    padding-bottom: 10px;
+}
+
+#addNewFoodBtn {
+    border-radius: 50%;
+    background-color:rgb(206, 206, 206);
+    width: 200px;
+    height: 30px;
+    margin-top: 10px;
+    font-size: 19px;
 }

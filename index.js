@@ -1,4 +1,9 @@
-import foods from './db.json' assert {type: 'json'}
+import { setupInitialDisplay } from "./displaySetup/setupInitialDisplay.js";
+import { setupAddNewFoodDisplay } from "./displaySetup/setupAddNewFoodDisplay.js";
+import { confirmDialogBox } from "./confirmDialogBox.js";
+import { clearInput } from "./clearInputs/clearInput.js";
+import { clearTotal } from "./clearInputs/clearTotal.js";
+import { clearAddNewFoodInputs } from "./clearInputs/clearAddNewFoodInputs.js";
 
 let totalServingSize = 0;
 let totalProteins = 0;
@@ -8,58 +13,60 @@ let totalCalories = 0;
 
 window.addEventListener('load', solve);
 
-const foodNameElementId = 'foodName'
+const foodNameElementId = 'foodName';
 
 function solve() {
     document.getElementById('addFood').addEventListener('click', addFood);
+    document.getElementById('addNewFoodBtn').addEventListener('click', addNewFood);
+
+    const foods = JSON.parse(localStorage.getItem('foods')) || [];
 
     function findFoodInDbJson(foodName) {
         let i = 0;
-        
         for (; i < foods.length; ++i) {
-            if (foodName.toLowerCase() === foods[i].name.toLowerCase()) {
+            if (foods[i].name && typeof foods[i].name === 'string' && foods[i].name.toLowerCase() === foodName.toLowerCase()) {
                 break;
             }
         }
-
-        return i < foods.length ? foods[i] : null
-
+        return i < foods.length ? foods[i] : null;
     }
+
 
     function insertFitnessTableRow(foodName, servingSize, protein, carbs, fat, calories) {
         const tbody = document.querySelector('#fitness-table tbody');
 
         const tr = document.createElement('tr');
-        const th = document.createElement('td');
-        const th1 = document.createElement('td');
-        const th2 = document.createElement('td');
-        const th3 = document.createElement('td');
-        const th4 = document.createElement('td');
-        const th5 = document.createElement('td');
-        
-        th.textContent = foodName;
-        th1.textContent = servingSize;
-        th2.textContent = protein;
-        th3.textContent = carbs;
-        th4.textContent = fat;
-        th5.textContent = calories;
+        const td = document.createElement('td');
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+        const td3 = document.createElement('td');
+        const td4 = document.createElement('td');
+        const td5 = document.createElement('td');
 
-        tr.appendChild(th);
-        tr.appendChild(th1);
-        tr.appendChild(th2);
-        tr.appendChild(th3);
-        tr.appendChild(th4);
-        tr.appendChild(th5);
+        td.textContent = foodName;
+        td1.textContent = servingSize;
+        td2.textContent = protein;
+        td3.textContent = carbs;
+        td4.textContent = fat;
+        td5.textContent = calories;
+
+        tr.appendChild(td);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
         tbody.appendChild(tr);
     }
 
-    function clearInput() {
-        document.getElementById(foodNameElementId).value = '';
-    }
 
     function addFood() {
-        const currentProduct = document.getElementById(foodNameElementId);        
-        const food = findFoodInDbJson(currentProduct.value)
+        const currentProduct = document.getElementById(foodNameElementId);
+        const food = findFoodInDbJson(currentProduct.value);
+        
+        if (currentProduct.value === '') {
+            return;
+        }
 
         if (food) {
             insertFitnessTableRow(food.name, food.servingSize, food.protein, food.carbohydrates, food.fat, food.calories)
@@ -67,20 +74,16 @@ function solve() {
             clearInput();
             updateTotalTable(food.servingSize, food.protein, food.carbohydrates, food.fat, food.calories);
         } else {
-            document.querySelector('.addNewFood').style.display = 'block';
-        }        
+            addNewFood();
+            setupAddNewFoodDisplay();
+            confirmDialogBox();
+        }
     }
 
-
-    function clearTotal() {
-        document
-            .querySelectorAll('#total tbody td')
-            .forEach(el => el.remove());
-    }
 
     function updateTotalTable(servingSize, protein, carbs, fat, calories) {
         clearTotal();
-
+        
         totalServingSize += servingSize;
         totalProteins += protein;
         totalCarbs += carbs;
@@ -108,7 +111,35 @@ function solve() {
     }
 
 
-    function addNewFood() {
+    function addNewFood(e) {
+        e = e || window.event
+        e.preventDefault();
+
+        let foodName = document.getElementById('food-name').value;
+        let servingSize = Number(document.getElementById('serving-size').value);
+        let protein = Number(document.getElementById('protein').value);
+        let carbs = Number(document.getElementById('carbs').value);
+        let fat = Number(document.getElementById('fat').value);
+        let calories = Number(document.getElementById('calories').value);
         
+        const newFood = {
+            "name": foodName,
+            "servingSize": servingSize,
+            "protein": protein,
+            "carbohydrates": carbs,
+            "fat": fat,
+            "calories": calories
+        }
+        
+        if(!foodName || !servingSize || !protein || !carbs || !fat || !calories ){
+            return;
+        }else {
+            foods.push(newFood);
+            
+            localStorage.setItem('foods', JSON.stringify(foods));
+
+            clearAddNewFoodInputs();
+        }
+        setupInitialDisplay();
     }
 }

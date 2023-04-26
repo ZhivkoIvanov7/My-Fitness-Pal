@@ -13,10 +13,10 @@
     <div class="app">
         <div class="addFood">
             <h2>My Fitness Pal</h2>
-            <div class="form-input">
+            <div id="form-input">
                 <label>Add Food</label>
                 <input type="text" id="foodName">
-                <button id="addFood">Add</button>
+                <button id="addFood">+</button>
             </div>
         </div>
         <div class="fitnessTable">
@@ -51,7 +51,22 @@
             </table>
         </div>
         <div class="addNewFood">
-            <button id="addNewFood">Add New</button>
+            <form id="addNewFood-form">
+                <h3>Add New Food</h3>
+                <label>Food Name</label>
+                <input type="text" placeholder="Enter a food name" id="food-name">
+                <label>Serving Size</label>
+                <input type="text" placeholder="Enter a serving size" id="serving-size">
+                <label>Protein</label>
+                <input type="text" placeholder="Enter a protein" id="protein">
+                <label>Carbohydrates</label>
+                <input type="text" placeholder="Enter a carbohydrates" id="carbs">
+                <label>Fat</label>
+                <input type="text" placeholder="Enter a fat" id="fat">
+                <label>Calories</label>
+                <input type="text" placeholder="Enter a calories" id="calories">
+                <button id="addNewFoodBtn">Add</button>
+            </form>
         </div>
     </div>
     <script type="module" src="/index.js"></script>
