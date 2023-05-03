@@ -6,7 +6,7 @@ export function confirmDialogBox(e) {
     if (message) {
         setActivePage('add-new-food');
     } else {
-        setActivePage('start-page');
+        setActivePage('add-food-page');
         clearInput();
     }
 }

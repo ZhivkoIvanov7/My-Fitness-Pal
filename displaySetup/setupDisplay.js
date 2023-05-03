@@ -3,13 +3,30 @@ const pages = {
         selector: "#start-page",
         display: "block"
     },
+    "add-food-page": {
+        selector: "#add-food-page",
+        display: "block"
+    },
     "add-new-food": {
         selector: "#addNewFood-form",
         display: "flex"
+    },
+    "diary-page": {
+        selector: "#diary-page",
+        display: "block"
+    },
+    "newsfeed-page": {
+        selector: "#newsfeed-page",
+        display: "block"
+    },
+    "plans-page": {
+        selector: "#plans-page",
+        display: "block"
     }
+
 }
 
-let activePage = 'start-page';
+let activePage = "start-page";
 
 function displayPage(page) {
     if (pages[page]) {
@@ -32,7 +49,7 @@ export function setActivePage(page) {
 }
 
 function onPopState(event) {
-    displayPage(event.state ?? 'start-page')
+    displayPage(event.state ?? "start-page")
 
     activePage = event.state;
 }

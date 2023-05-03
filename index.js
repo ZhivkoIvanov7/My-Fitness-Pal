@@ -15,9 +15,21 @@ window.addEventListener('load', solve);
 
 const foodNameElementId = 'foodName';
 
-function solve() {
+function solve() {  
     document.getElementById('addFood').addEventListener('click', addFood);
     document.getElementById('addNewFoodBtn').addEventListener('click', addNewFood);
+
+    const searchFoodButtons = document.querySelectorAll("#search-food-btn");
+    const dashboardButtons = document.querySelectorAll('#dashboard-btn');
+    const diaryButtons = document.querySelectorAll('#diary-btn');
+    const newsfeedButtons = document.querySelectorAll('#newsfeed-btn');
+    const plansButtons = document.querySelectorAll('#plans-btn');
+
+    searchFoodButtons.forEach(button => button.addEventListener('click', showAddFoodPage));
+    dashboardButtons.forEach(button => button.addEventListener('click', showStartPage));
+    diaryButtons.forEach(button => button.addEventListener('click', showDiaryPage));
+    newsfeedButtons.forEach(button => button.addEventListener('click', showNewsfeedPage));
+    plansButtons.forEach(button => button.addEventListener('click', showPlansPage))
 
     if (!localStorage.getItem('foods')) {
         localStorage.setItem('foods', JSON.stringify(foodsDb))
@@ -67,7 +79,7 @@ function solve() {
     function addFood() {
         const currentProduct = document.getElementById(foodNameElementId);
         const food = findFoodInDbJson(currentProduct.value);
-        
+
         if (currentProduct.value === '') {
             return;
         }
@@ -87,7 +99,7 @@ function solve() {
 
     function updateTotalTable(servingSize, protein, carbs, fat, calories) {
         clearTotal();
-        
+
         totalServingSize += servingSize;
         totalProteins += protein;
         totalCarbs += carbs;
@@ -125,7 +137,7 @@ function solve() {
         let carbs = Number(document.getElementById('carbs').value);
         let fat = Number(document.getElementById('fat').value);
         let calories = Number(document.getElementById('calories').value);
-        
+
         const newFood = {
             "name": foodName,
             "servingSize": servingSize,
@@ -134,12 +146,12 @@ function solve() {
             "fat": fat,
             "calories": calories
         }
-        
-        if (!foodName || !servingSize || !protein || !carbs || !fat || !calories ) {
+
+        if (!foodName || !servingSize || !protein || !carbs || !fat || !calories) {
             return;
         } else {
             foods.push(newFood);
-            
+
             localStorage.setItem('foods', JSON.stringify(foods));
 
             clearAddNewFoodInputs();
@@ -147,4 +159,35 @@ function solve() {
 
         setActivePage('start-page');
     }
+
+    function showStartPage(e) {
+        e.preventDefault();
+
+        setActivePage('start-page');
+    }
+
+    function showAddFoodPage(e) {
+        e.preventDefault();
+
+        setActivePage("add-food-page");
+    }
+
+    function showDiaryPage(e) {
+        e.preventDefault()
+
+        setActivePage('diary-page');
+    }
+
+    function showNewsfeedPage(e) {
+        e.preventDefault();
+
+        setActivePage('newsfeed-page');
+    }
+
+    function showPlansPage(e) {
+        e.preventDefault();
+        
+        setActivePage('plans-page')
+    }
+
 }
