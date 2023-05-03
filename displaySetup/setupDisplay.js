@@ -1,27 +1,36 @@
+
+const navbarSelector = "#navigation"
+
 const pages = {
     "start-page": {
         selector: "#start-page",
-        display: "block"
+        display: "block",
+        navbarVisible: true
     },
     "add-food-page": {
         selector: "#add-food-page",
-        display: "block"
+        display: "block",
+        navbarVisible: false
     },
     "add-new-food": {
         selector: "#addNewFood-form",
-        display: "flex"
+        display: "flex",
+        navbarVisible: false
     },
     "diary-page": {
         selector: "#diary-page",
-        display: "block"
+        display: "block",
+        navbarVisible: true
     },
     "newsfeed-page": {
         selector: "#newsfeed-page",
-        display: "block"
+        display: "block",
+        navbarVisible: true
     },
     "plans-page": {
         selector: "#plans-page",
-        display: "block"
+        display: "block",
+        navbarVisible: true
     }
 
 }
@@ -33,10 +42,16 @@ function displayPage(page) {
         document.querySelector(pages[activePage].selector).style.display = 'none';
         document.querySelector(pages[page].selector).style.display = pages[page].display;
 
+        if (pages[page].navbarVisible) {
+            document.querySelector(navbarSelector).style.display = 'block';
+        } else {
+            document.querySelector(navbarSelector).style.display = 'none';
+        }
+
         return true;
     } 
 
-    console.error(`Invalid page name: ${page}`)
+    console.error(`Invalid page name: ${page}`);
     return false;
 }
 
@@ -49,9 +64,11 @@ export function setActivePage(page) {
 }
 
 function onPopState(event) {
-    displayPage(event.state ?? "start-page")
+    const page = event.state ?? "start-page";
 
-    activePage = event.state;
+    displayPage(page);
+
+    activePage = page;
 }
 
-addEventListener("popstate", onPopState)
+addEventListener("popstate", onPopState);
