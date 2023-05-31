@@ -1,9 +1,11 @@
 import { setActivePage } from "./displaySetup/setupDisplay.js";
-import { confirmDialogBox } from "./confirmDialogBox.js";
+import { confirmDialogBox } from "./confirmDialogBox.js"
 import { clearInput } from "./clearInputs/clearInput.js";
 import { clearTotal } from "./clearInputs/clearTotal.js";
 import { clearAddNewFoodInputs } from "./clearInputs/clearAddNewFoodInputs.js";
 import foodsDb from './db.json' assert { type: 'json' }
+import { addBreakfast, addLunch, addDinner } from "./addFoodInDiaryPage/addMeal.js";
+import { addCalories } from "./addFoodInDiaryPage/addCalories.js";
 
 let totalServingSize = 0;
 let totalProteins = 0;
@@ -15,7 +17,7 @@ window.addEventListener('load', solve);
 
 const foodNameElementId = 'foodName';
 
-function solve() {  
+function solve() {
     document.getElementById('addFood').addEventListener('click', addFood);
     document.getElementById('addNewFoodBtn').addEventListener('click', addNewFood);
 
@@ -39,6 +41,7 @@ function solve() {
 
     function findFoodInDbJson(foodName) {
         let i = 0;
+
         for (; i < foods.length; ++i) {
             if (foods[i].name && typeof foods[i].name === 'string' && foods[i].name.toLowerCase() === foodName.toLowerCase()) {
                 break;
@@ -80,19 +83,22 @@ function solve() {
         const currentProduct = document.getElementById(foodNameElementId);
         const food = findFoodInDbJson(currentProduct.value);
 
-        if (currentProduct.value === '') {
-            return;
-        }
-
         if (food) {
             insertFitnessTableRow(food.name, food.servingSize, food.protein, food.carbohydrates, food.fat, food.calories)
 
             clearInput();
             updateTotalTable(food.servingSize, food.protein, food.carbohydrates, food.fat, food.calories);
+        } else if (window.history.state === 'diary-page' && !food || currentProduct.value === '') {
+            addNewFood();
+            return confirmDialogBox();
         } else {
             addNewFood();
             setActivePage('add-new-food');
             confirmDialogBox();
+        }
+
+        if (currentProduct.value === '') {
+            return;
         }
     }
 
@@ -130,8 +136,9 @@ function solve() {
     function addNewFood(e) {
         e = e || window.event
         e.preventDefault();
+        let name = document.getElementById('foodName').value;
 
-        let foodName = document.getElementById('food-name').value;
+        let foodName = document.getElementById('food-name').value = name;
         let servingSize = Number(document.getElementById('serving-size').value);
         let protein = Number(document.getElementById('protein').value);
         let carbs = Number(document.getElementById('carbs').value);
@@ -170,12 +177,20 @@ function solve() {
         e.preventDefault();
 
         setActivePage("add-food-page");
+
     }
 
+
     function showDiaryPage(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         setActivePage('diary-page');
+
+        const breakfastBtn = document.getElementById('breakfastBtn').addEventListener('click', addBreakfast);
+        const lunchBtn = document.getElementById('lunchBtn').addEventListener('click', addLunch);
+        const dinnerBtn = document.getElementById('dinnerBtn').addEventListener('click', addDinner);
+
+        addCalories()
     }
 
     function showNewsfeedPage(e) {
@@ -186,7 +201,7 @@ function solve() {
 
     function showPlansPage(e) {
         e.preventDefault();
-        
+
         setActivePage('plans-page')
     }
 

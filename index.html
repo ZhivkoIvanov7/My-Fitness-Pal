@@ -13,16 +13,47 @@
     <div class="app">
         <div id="start-page">
             <div id="box">
-                <h3>This is where the calories should be</h3>
+                <span id="circle">
+                    <input type="text" id="add-calories">
+                </span>
+                <h3>Calories</h3>
             </div>
         </div>
         <div id="diary-page" style="display: none;">
             <div id="calories-counter">
                 <h4>Calories Remaining</h4>
+                <span id="calorie-goal"></span>
+                <p>-</p>
+                <span id="foodCalories"></span>
+                <p>=</p>
+                <span id="calorie-remaining"></span>
             </div>
-            <div id="breakfast">
-                <h4>Breakfast</h4>
+            <div id="container">
+                <div id="breakfast">
+                    <h4>Breakfast</h4>
+                    <table>
+                        <tbody>
+                        </tbody> 
+                    </table>
+                    <button id="breakfastBtn">ADD FOOD</button>
+                </div>
+            <div id="lunch">
+                <h4>Lunch</h4>
+                <table>
+                    <tbody>
+                    </tbody> 
+                </table>
+                <button id="lunchBtn">ADD FOOD</button>
             </div>
+            <div id="dinner">
+                <h4>Dinner</h4>
+                <table>
+                    <tbody>
+                    </tbody> 
+                </table>
+                <button id="dinnerBtn">ADD FOOD</button>
+            </div>
+        </div>
         </div>
         <div id="newsfeed-page" style="display: none;">
             <h2>This is newsfeed page</h2>
@@ -87,7 +118,7 @@
                 <input type="text" placeholder="Enter a calories" id="calories">
                 <button id="addNewFoodBtn">Add</button>
             </form>
-        </div>        
+        </div>
     </div>
     <div class="navbar" id="navigation">
         <form id="search-form">
@@ -100,7 +131,7 @@
             <button id="plans-btn">Plans</button>
             <button id="more-btn">More</button>
         </ul>
-    </div>    
+    </div>
     <script type="module" src="/index.js"></script>
 
 </body>
