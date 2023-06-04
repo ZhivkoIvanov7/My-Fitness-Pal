@@ -1,0 +1,17 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+footer {
+  background-color: red;
+}
+
+footer ul {
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  display: inline-block;
+}
