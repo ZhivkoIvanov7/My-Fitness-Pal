@@ -1,22 +1,33 @@
 export function addCalories() {
     let calorieGoal = document.getElementById('calorie-goal');
     let calories = document.getElementById('add-calories');
+    let foodCalories = document.getElementById('foodCalories');
+    let caloriesRemaining = document.getElementById('calorie-remaining');
     
-    calorieGoal.textContent = calories.value
+    if(calories.value){
+      calorieGoal.textContent = calories.value;
+    
+      let sumCalories = 0;
+    
+      const tds = document.querySelectorAll('#fitness-table tbody tr td');
+      let tdsArr = Array.from(tds);
+      
+      for (let i = 0; i < tdsArr.length; i += 6) {
+  
+        let caloriesElement = tdsArr[i + 5];
+        let caloriesValue = Number(caloriesElement.textContent);
+    
+        sumCalories += caloriesValue;
+      }
+  
+      foodCalories.textContent = sumCalories.toString();
+  
+      let totalCalories = Number(calorieGoal.textContent) - sumCalories;
+      caloriesRemaining.textContent = totalCalories.toString();
 
-    const tds = document.querySelectorAll('#fitness-table tbody tr td');
-    let tdsArr = Array.from(tds);
-
-    if (tdsArr.length > 6) {
-        tdsArr = tdsArr.slice(-6);
+    }else{
+      calorieGoal.textContent = 'Calorie Goal';
+      foodCalories.textContent = 'Food Calories';
+      caloriesRemaining.textContent = 'Remaining Calories';
     }
-
-    for (let i = 0; i < tdsArr.length; i += 6) {
-        const caloriesElement = document.querySelector('#fitness-table tbody td:nth-child(6)');
-
-        let calorieRemaining = Number(calorieGoal.textContent) - Number(caloriesElement.textContent);
-
-        console.log(calorieRemaining);
-
-    }
-}
+  }

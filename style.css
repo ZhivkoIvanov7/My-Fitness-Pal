@@ -58,29 +58,18 @@ body {
     color: black;
 }
 
-#calorie-goal {
-    position: absolute;
-    top: 50%;
-    left: 30px;
+#calories-counter span,
+#calories-counter p {
+    display: inline;
+    vertical-align: middle;
+    font-weight: bold;
     font-size: larger;
-    
+    padding-left: 15px;
 }
 
 #calories-counter h4{
     border: none;
 }
-
-#calories-counter span {
-    font-weight: bold;
-}
-
-#calories-counter p {
-    display: inline;
-    font-size: 18px;
-    padding-left: 150px;
-}
-
-
 
 .navbar {
     background-color: #335ff1;

@@ -1,16 +1,19 @@
 
-const navbarSelector = "#navigation"
+const navbarSelector = "#navigation";
+
+const searchBtnSelector = '#search-form';
 
 const pages = {
     "start-page": {
         selector: "#start-page",
         display: "block",
-        navbarVisible: true
+        navbarVisible: true,
+        searchBtnVisible: true
     },
     "add-food-page": {
         selector: "#add-food-page",
         display: "block",
-        navbarVisible: false
+        navbarVisible: false,
     },
     "add-new-food": {
         selector: "#addNewFood-form",
@@ -46,6 +49,12 @@ function displayPage(page) {
             document.querySelector(navbarSelector).style.display = 'block';
         } else {
             document.querySelector(navbarSelector).style.display = 'none';
+        }
+
+        if(pages[page].searchBtnVisible){
+            document.querySelector(searchBtnSelector).style.display = 'block';
+        } else {
+            document.querySelector(searchBtnSelector).style.display = 'none';
         }
 
         return true;
